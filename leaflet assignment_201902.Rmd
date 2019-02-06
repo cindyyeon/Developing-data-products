@@ -1,0 +1,36 @@
+---
+title: "South Korea's population"
+author: "Cindy Yeon"
+date: "Feb 6, 2019"
+output: html_document
+---
+
+## South Korea's population by city
+
+As of the end of December 2018, I compiled South Korea's population by city. The statistical data is collected from the Ministry of Government Administration. I looked into latitude and longitude of each city of Korea with Google maps.
+
+
+There are eight metropolitan cities, and there are about 150 cities in eight districts of South Korea. For reasons of not being able to download numerical data, only the population of 8 metropolitan cities were indicated.
+
+
+```{r, echo = TRUE}
+library(leaflet)
+
+df <- data.frame(name = c("Seoul", "Pusan", "Incheon", "Daegu", 
+                                 "Daejeon", "Gwhangju", "Ulsan", "Sejoung"),
+                        pop = c(9765623, 3441453, 2954642, 2461769, 
+                                1489936, 1459336,1155623, 314126),
+                        lat = c(37.566535, 35.1795543, 
+                                37.4737281, 35.9945891,
+                                36.353505, 35.1501267,
+                                35.538128, 36.532154),
+                        lng = c(126.97796919999996, 129.07564160000004, 
+                                126.62148120000006, 128.67301780000003, 
+                                127.34599639999999, 126.85279730000002,
+                                129.32719139999995, 127.36543099999994))
+df %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircles(weight = 1, radius = sqrt(df$pop) * 10)
+```
+
